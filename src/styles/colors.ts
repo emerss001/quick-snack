@@ -1,39 +1,41 @@
 export const colors = {
-    background: "hsl(0 0% 100%)",
-    foreground: "hsl(0 0% 20%)",
+    black: "#323232",
 
-    card: "hsl(0 0% 100%)",
-    cardForeground: "hsl(0 0% 20%)",
+    background: "#ffffff",
+    foreground: "#333333",
 
-    popover: "hsl(0 0% 100%)",
-    popoverForeground: "hsl(0 0% 20%)",
+    card: "#ffffff",
+    cardForeground: "#333333",
 
-    primary: "hsl(42 100% 50%)",
-    primaryForeground: "hsl(0 0% 98%)",
+    popover: "#ffffff",
+    popoverForeground: "#333333",
 
-    secondary: "hsl(0 0% 96.1%)",
-    secondaryForeground: "hsl(0 0% 20%)",
+    primary: "#ffc800",
+    primaryForeground: "#fafafa",
 
-    muted: "hsl(0 0% 96.1%)",
-    mutedForeground: "hsl(0 0% 45.1%)",
+    secondary: "#f5f5f5",
+    secondaryForeground: "#333333",
 
-    accent: "hsl(0 0% 96.1%)",
-    accentForeground: "hsl(0 0% 20%)",
+    muted: "#f5f5f5",
+    mutedForeground: "#737373",
 
-    destructive: "hsl(0 84.2% 60.2%)",
-    destructiveForeground: "hsl(0 0% 98%)",
+    accent: "#f5f5f5",
+    accentForeground: "#333333",
 
-    border: "hsl(198 33% 94%)",
-    input: "hsl(198 33% 94%)",
-    ring: "hsl(0 0% 20%)",
+    destructive: "#ef4444",
+    destructiveForeground: "#fafafa",
+
+    border: "#e3f2f7",
+    input: "#e3f2f7",
+    ring: "#333333",
 
     chart: {
-        1: "hsl(12 76% 61%)",
-        2: "hsl(173 58% 39%)",
-        3: "hsl(197 37% 24%)",
-        4: "hsl(43 74% 66%)",
-        5: "hsl(27 87% 67%)",
+        1: "#f16342",
+        2: "#2a9d8f",
+        3: "#36576d",
+        4: "#f6c15e",
+        5: "#fa9148",
     },
 
-    radius: "0.5rem", // esse valor pode ser convertido pra número se quiser
+    radius: "0.5rem",
 };

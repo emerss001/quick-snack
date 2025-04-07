@@ -1,6 +1,12 @@
 import { Slot } from "expo-router";
-import "../styles/global.css";
+import { SafeAreaView, StatusBar } from "react-native";
+import { colors } from "../styles/colors";
 
 export default function RootLayout() {
-    return <Slot />;
+    return (
+        <SafeAreaView className="bg-background">
+            <StatusBar backgroundColor={colors.background} />
+            <Slot />
+        </SafeAreaView>
+    );
 }
