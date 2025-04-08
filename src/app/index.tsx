@@ -1,6 +1,10 @@
-import { FontAssets, Fonts } from "@/assets/fonts/fonts";
-import { View, Text, Image } from "react-native";
+import { FontAssets } from "@/assets/fonts/fonts";
+import { View, Image, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
+import { AppText } from "../../components/AppText";
+import { colors } from "../styles/colors";
+import AppOption from "@/components/AppOption";
+import { router } from "expo-router";
 
 export default function App() {
     const [fontsLoaded] = useFonts(FontAssets);
@@ -8,21 +12,91 @@ export default function App() {
     if (!fontsLoaded) {
         return null;
     }
+
+    function handlePressNextPage(option: string) {
+        router.push({
+            pathname: "/restaurant/restaurant-page",
+            params: { option },
+        });
+    }
     return (
-        <View className="bg-background">
-            <View className="items-center justify-center gap-2 mt-20">
-                <Image source={require("@/assets/icons/Logo.png")} style={{ height: 82, width: 82 }} />
-                <Text className="font-bold text-xl">Quick Snack</Text>
+        <View style={styles.container}>
+            <View style={styles.containerLogo}>
+                <Image
+                    source={require("@/assets/icons/Logo.png")}
+                    style={{ height: 82, width: 82 }}
+                    alt="avatar imagem"
+                />
+                <AppText style={styles.textTitle} font="Semibold">
+                    Quick Snack
+                </AppText>
             </View>
-            <View className="px-6 mt-10 items-center">
-                <Text className="text-4xl font-semibold" style={{ fontFamily: Fonts.Regular }}>
-                    Seja bem-vindo
-                </Text>
-                <Text className="text-base text-center mt-2 max-w-[325]" style={{ fontFamily: Fonts.Regular }}>
+
+            <View style={styles.textCenter}>
+                <AppText style={styles.text26} font="Semibold">
+                    Seja bem-vindo!
+                </AppText>
+                <AppText style={styles.textsmall} font="Regular">
                     Escolha como prefere aproveitar sua refeição. Estamos aqui para oferecer praticidade e sabor em cada
                     detalhe!
-                </Text>
+                </AppText>
+            </View>
+
+            <View style={styles.viewOptions}>
+                <AppOption
+                    dimensions={{ height: 82, width: 78 }}
+                    title="Para comer aqui"
+                    image={require("@/assets/images/Burgher.png")}
+                    onPress={() => handlePressNextPage("here")}
+                />
+                <AppOption
+                    dimensions={{ height: 80, width: 74 }}
+                    title="Para Levar"
+                    image={require("@/assets/images/Bag.png")}
+                    onPress={() => handlePressNextPage("takeout")}
+                />
             </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "column",
+        alignItems: "center",
+        paddingHorizontal: 24,
+        paddingTop: 96,
+    },
+
+    containerLogo: {
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 8,
+    },
+
+    textTitle: {
+        color: colors.black,
+    },
+
+    textCenter: {
+        paddingTop: 96,
+        alignItems: "center",
+        gap: 8,
+    },
+
+    text26: {
+        fontSize: 26,
+    },
+
+    textsmall: {
+        opacity: 0.55,
+        textAlign: "center",
+        maxWidth: 330,
+    },
+
+    viewOptions: {
+        paddingTop: 56,
+        flexDirection: "row",
+        gap: 16,
+    },
+});
