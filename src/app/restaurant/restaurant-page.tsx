@@ -32,20 +32,19 @@ const restaurantPage = () => {
 
     useEffect(() => {
         spinFunction();
-        setTimeout(() => {
-            async function fetchCategories() {
-                try {
-                    const data = await getCategories();
-                    if (data) {
-                        setCategories(data.categorysNames);
-                        setLoading(false);
-                    }
-                } catch (err) {
-                    console.error("Erro ao buscar categorias:", err);
+
+        async function fetchCategories() {
+            try {
+                const data = await getCategories();
+                if (data) {
+                    setCategories(data.categorysNames);
+                    setLoading(false);
                 }
+            } catch (err) {
+                console.error("Erro ao buscar categorias:", err);
             }
-            fetchCategories();
-        }, 2000);
+        }
+        fetchCategories();
     }, []);
 
     return (

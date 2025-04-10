@@ -27,7 +27,6 @@ export async function getProductsByCategory(category: string): Promise<Product[]
         }
 
         const data = await response.json();
-        console.log(data.products);
         return data.products;
     } catch (error) {
         console.log("erro na função", error);

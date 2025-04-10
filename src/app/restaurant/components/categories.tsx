@@ -59,8 +59,9 @@ const RestautantCategories = ({ Categories }: RestaurantCategoriesProps) => {
                     Aberto
                 </AppText>
             </View>
-            <ScrollView horizontal style={{ marginTop: 20 }} showsHorizontalScrollIndicator={false}>
-                <View style={{ display: "flex", flexDirection: "row", gap: 15 }}>
+
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View style={styles.scollCategories}>
                     {Categories.map((category) => {
                         const isSelected = selectedCategory === category.name;
                         return (
@@ -81,7 +82,11 @@ const RestautantCategories = ({ Categories }: RestaurantCategoriesProps) => {
                 </View>
             </ScrollView>
 
-            {loading ? <AppText>Carregando...</AppText> : <ProductsList products={products} />}
+            {loading ? (
+                <AppText>Carregando...</AppText>
+            ) : (
+                <ProductsList products={products} categoryName={selectedCategory} />
+            )}
         </ScrollView>
     );
 };
@@ -98,6 +103,14 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 24,
         padding: 20,
         backgroundColor: colors.background,
+    },
+
+    scollCategories: {
+        display: "flex",
+        flexDirection: "row",
+        gap: 15,
+        marginTop: 20,
+        paddingBottom: 20,
     },
 
     image: {
