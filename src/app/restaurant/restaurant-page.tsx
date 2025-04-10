@@ -3,6 +3,7 @@ import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 import RestaurantImage from "./components/image-restaurant";
+import RestautantCategories from "./components/categories";
 
 const restaurantPage = () => {
     const [categories, setCategories] = useState<Category[]>([]);
@@ -28,8 +29,9 @@ const restaurantPage = () => {
     }, []);
 
     return (
-        <View>
+        <View style={{ height: "100%", paddingBottom: 20 }}>
             <RestaurantImage />
+            {!loading && categories.length > 0 && <RestautantCategories Categories={categories} />}
         </View>
     );
 };
