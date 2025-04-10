@@ -1,5 +1,5 @@
 // components/AppButton.tsx
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from "react-native";
 import { AppText } from "./AppText";
 
 interface AppButtonProps {
@@ -8,16 +8,38 @@ interface AppButtonProps {
 }
 
 export function AppButton({ title, variant = "primary" }: AppButtonProps) {
-    const variants = {
-        primary: "bg-primary text-white",
-        secondary: "bg-gray-200 text-black",
-    };
+    const isPrimary = variant === "primary";
 
     return (
-        <TouchableOpacity className={`px-4 py-3 rounded-lg items-center justify-center bg-green-600 `}>
-            <AppText className="text-xs" font="Semibold">
+        <TouchableOpacity style={[styles.button, isPrimary ? styles.primary : styles.secondary]}>
+            <AppText style={[styles.text, isPrimary ? styles.textPrimary : styles.textSecondary]} font="Semibold">
                 {title}
             </AppText>
         </TouchableOpacity>
     );
 }
+
+const styles = StyleSheet.create({
+    button: {
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        borderRadius: 8,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    primary: {
+        backgroundColor: "#22c55e", // verde (como o `bg-green-600`)
+    },
+    secondary: {
+        backgroundColor: "#e5e7eb", // cinza claro (como `bg-gray-200`)
+    },
+    text: {
+        fontSize: 12,
+    },
+    textPrimary: {
+        color: "#ffffff",
+    },
+    textSecondary: {
+        color: "#000000",
+    },
+});

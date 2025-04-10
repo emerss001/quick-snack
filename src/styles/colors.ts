@@ -1,5 +1,7 @@
 export const colors = {
     black: "#323232",
+    green: "#48bb78",
+    lines: "#7E8392",
 
     background: "#ffffff",
     foreground: "#333333",
