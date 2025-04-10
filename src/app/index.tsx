@@ -5,6 +5,7 @@ import { AppText } from "../../components/AppText";
 import { colors } from "../styles/colors";
 import AppOption from "@/components/AppOption";
 import { router } from "expo-router";
+import ConsumptionMethod from "../types/consumption-method";
 
 export default function App() {
     const [fontsLoaded] = useFonts(FontAssets);
@@ -47,13 +48,13 @@ export default function App() {
                     dimensions={{ height: 82, width: 78 }}
                     title="Para comer aqui"
                     image={require("@/assets/images/Burgher.png")}
-                    onPress={() => handlePressNextPage("here")}
+                    onPress={() => handlePressNextPage(ConsumptionMethod.DINE_IN)}
                 />
                 <AppOption
                     dimensions={{ height: 80, width: 74 }}
                     title="Para Levar"
                     image={require("@/assets/images/Bag.png")}
-                    onPress={() => handlePressNextPage("takeout")}
+                    onPress={() => handlePressNextPage(ConsumptionMethod.TAKE_OUT)}
                 />
             </View>
         </View>
