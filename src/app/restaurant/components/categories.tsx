@@ -5,8 +5,9 @@ import { getProductsByCategory, Product } from "@/src/http/get-products";
 import { colors } from "@/src/styles/colors";
 import { ClockIcon } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Button, Image, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import ProductsList from "./products";
+import { useQuery } from "@tanstack/react-query";
 
 interface RestaurantCategoriesProps {
     Categories: Category[];
@@ -14,52 +15,32 @@ interface RestaurantCategoriesProps {
 
 const RestautantCategories = ({ Categories }: RestaurantCategoriesProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string>(Categories[0].name);
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    const { data, isLoading, isError, refetch } = useQuery({
+        queryKey: ["products", selectedCategory],
+        queryFn: () => getProductsByCategory(selectedCategory),
+        refetchOnWindowFocus: false,
+    });
 
     const hanleCategoryClick = (category: Category) => {
         setSelectedCategory(category.name);
     };
 
-    useEffect(() => {
-        async function fetchProducts() {
-            try {
-                const data = await getProductsByCategory(selectedCategory);
-                if (data) {
-                    setProducts(data);
-
-                    setLoading(false);
-                }
-            } catch (err) {
-                console.error("Erro ao buscar produtos:", err);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchProducts();
-    }, [selectedCategory]);
-
-    return (
-        <ScrollView style={styles.divMenu} keyboardShouldPersistTaps="handled">
-            <View style={styles.restaurantInformation}>
-                <Image source={require("@/assets/icons/RestaurantLogo.png")} style={styles.image} />
+    if (isError) {
+        return (
+            <View style={{ height: "100%", paddingBottom: 20 }}>
                 <View>
-                    <AppText font="Semibold" fontSize={18}>
-                        Donald's GBI
+                    <AppText font="Medium" fontSize={18}>
+                        Não foi possível carregar os dados
                     </AppText>
-                    <AppText style={{ opacity: 0.55 }} fontSize={12}>
-                        Fast Food
-                    </AppText>
+                    <Button onPress={() => refetch()} title="Tentar novamente" color={colors.primary} />
                 </View>
             </View>
-            <View style={styles.clock}>
-                <ClockIcon size={12} color={colors.green} />
-                <AppText fontSize={12} style={{ color: colors.green }}>
-                    Aberto
-                </AppText>
-            </View>
+        );
+    }
 
+    return (
+        <>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={styles.scollCategories}>
                     {Categories.map((category) => {
@@ -82,56 +63,24 @@ const RestautantCategories = ({ Categories }: RestaurantCategoriesProps) => {
                 </View>
             </ScrollView>
 
-            {loading ? (
+            {isLoading ? (
                 <AppText>Carregando...</AppText>
             ) : (
-                <ProductsList products={products} categoryName={selectedCategory} />
+                <ProductsList products={data || []} categoryName={selectedCategory} />
             )}
-        </ScrollView>
+        </>
     );
 };
 
 export default RestautantCategories;
 
 const styles = StyleSheet.create({
-    divMenu: {
-        flexGrow: 1,
-        position: "relative",
-        zIndex: 50,
-        marginTop: -25,
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-        padding: 20,
-        backgroundColor: colors.background,
-    },
-
     scollCategories: {
         display: "flex",
         flexDirection: "row",
         gap: 15,
         marginTop: 20,
         paddingBottom: 20,
-    },
-
-    image: {
-        height: 50,
-        width: 50,
-    },
-
-    restaurantInformation: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 12,
-    },
-
-    clock: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        paddingTop: 10,
-        gap: 6,
-        color: colors.card[2],
     },
 
     categories: {
