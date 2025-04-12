@@ -17,7 +17,7 @@ const RestautantCategories = ({ Categories }: RestaurantCategoriesProps) => {
     const [selectedCategory, setSelectedCategory] = useState<string>(Categories[0].name);
 
     const { data, isLoading, isError, refetch } = useQuery({
-        queryKey: ["products", selectedCategory],
+        queryKey: ["productsList", selectedCategory],
         queryFn: () => getProductsByCategory(selectedCategory),
         refetchOnWindowFocus: false,
     });

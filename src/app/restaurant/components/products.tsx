@@ -1,6 +1,7 @@
 import { AppText } from "@/components/AppText";
 import { Product } from "@/src/http/get-products";
 import { colors } from "@/src/styles/colors";
+import { router } from "expo-router";
 import { FlatList, Pressable, StyleSheet, View, Image } from "react-native";
 
 interface ProductsListProps {
@@ -9,6 +10,12 @@ interface ProductsListProps {
 }
 
 const ProductsList = ({ products, categoryName }: ProductsListProps) => {
+    const handleClickProduct = (productId: number) => {
+        router.push({
+            pathname: "/restaurant/product/product-page",
+            params: { productId },
+        });
+    };
     return (
         <>
             <AppText font="Semibold" fontSize={14}>
@@ -22,7 +29,7 @@ const ProductsList = ({ products, categoryName }: ProductsListProps) => {
                     // contentContainerStyle={styles.scrollContainer}
                     renderItem={({ item }) => {
                         return (
-                            <Pressable style={styles.scroll} onPress={() => console.log(item.name)}>
+                            <Pressable style={styles.scroll} onPress={() => handleClickProduct(item.id)}>
                                 {/* ESQUERDA */}
                                 <View style={styles.scrollItem}>
                                     <AppText fontSize={14}>{item.name}</AppText>

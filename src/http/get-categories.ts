@@ -19,7 +19,7 @@ export async function getCategories(): Promise<GetCategoriesResponse | undefined
 
         if (!response.ok) {
             const errorBody = await response.text(); // ou .json() se tiver certeza
-            throw new Error(`Erro ${response.status}: ${response.statusText} - ${errorBody}`);
+            console.log(`Erro ${response.status}: ${response.statusText} - ${errorBody}`);
         }
 
         // Tenta converter para JSON

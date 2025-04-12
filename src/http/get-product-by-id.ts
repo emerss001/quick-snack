@@ -1,7 +1,7 @@
 import { Product } from "./get-products";
 import urlBase from "./url-base";
 
-export async function getProductById(productId: number): Promise<Product | undefined> {
+export async function getProductById(productId: string): Promise<Product | undefined> {
     try {
         const response = await fetch(`${urlBase}/products/${productId}`, {
             method: "GET",
@@ -16,7 +16,7 @@ export async function getProductById(productId: number): Promise<Product | undef
         }
 
         const data = await response.json();
-        return data.product;
+        return data;
     } catch (error) {
         console.log("Erro na função getProductById:", error);
     }
