@@ -5,9 +5,10 @@ import React, { useEffect, useRef } from "react";
 import RestaurantImage from "./components/image-restaurant";
 import RestautantCategories from "./components/categories";
 import { AppText } from "@/components/AppText";
-import { ClockIcon, LoaderCircle } from "lucide-react-native";
+import { ClockIcon, LoaderCircle, StarIcon } from "lucide-react-native";
 import { colors } from "@/src/styles/colors";
 import { useQuery } from "@tanstack/react-query";
+import AppButtonRefetch from "@/components/AppButtonRefetch";
 
 const RestaurantPage = () => {
     const { option } = useLocalSearchParams();
@@ -46,7 +47,7 @@ const RestaurantPage = () => {
                     <AppText font="Medium" fontSize={18}>
                         Não foi possível carregar os dados
                     </AppText>
-                    <Button onPress={() => refetch()} title="Tentar novamente" color={colors.primary} />
+                    <AppButtonRefetch title="Tentar novamente" refetch={refetch} />
                 </View>
             </View>
         );
@@ -73,16 +74,26 @@ const RestaurantPage = () => {
             <RestaurantImage />
             <ScrollView style={styles.divMenu} keyboardShouldPersistTaps="handled">
                 <View style={styles.restaurantInformation}>
-                    <Image source={require("@/assets/icons/RestaurantLogo.png")} style={styles.image} />
-                    <View>
-                        <AppText font="Semibold" fontSize={18}>
-                            Donald's GBI
-                        </AppText>
-                        <AppText style={{ opacity: 0.55 }} fontSize={12}>
-                            Fast Food
+                    <View style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 12 }}>
+                        <Image source={require("@/assets/icons/RestaurantLogo.png")} style={styles.image} />
+                        <View>
+                            <AppText font="Semibold" fontSize={18}>
+                                Donald's GBI
+                            </AppText>
+                            <AppText style={{ opacity: 0.55 }} fontSize={12}>
+                                Fast Food
+                            </AppText>
+                        </View>
+                    </View>
+                    <View style={styles.star}>
+                        <StarIcon size={15} color={colors.primary} fill={colors.primary} />
+
+                        <AppText fontSize={12} font="Medium" style={{ color: colors.foreground, marginTop: 2 }}>
+                            5.0
                         </AppText>
                     </View>
                 </View>
+
                 <View style={styles.clock}>
                     <ClockIcon size={12} color={colors.green} />
                     <AppText fontSize={12} style={{ color: colors.green }}>
@@ -131,6 +142,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "space-between",
         gap: 12,
     },
 
@@ -146,5 +158,18 @@ const styles = StyleSheet.create({
     image: {
         height: 50,
         width: 50,
+    },
+
+    star: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 6,
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        borderWidth: 0.3,
+        borderColor: "#323232",
+        borderRadius: 32,
     },
 });

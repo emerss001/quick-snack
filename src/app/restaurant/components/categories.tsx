@@ -1,4 +1,3 @@
-import { AppButton } from "@/components/AppButton";
 import { AppText } from "@/components/AppText";
 import { Category } from "@/src/http/get-categories";
 import { getProductsByCategory, Product } from "@/src/http/get-products";
@@ -8,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Button, Image, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import ProductsList from "./products";
 import { useQuery } from "@tanstack/react-query";
+import AppButtonRefetch from "@/components/AppButtonRefetch";
 
 interface RestaurantCategoriesProps {
     Categories: Category[];
@@ -33,7 +33,7 @@ const RestautantCategories = ({ Categories }: RestaurantCategoriesProps) => {
                     <AppText font="Medium" fontSize={18}>
                         Não foi possível carregar os dados
                     </AppText>
-                    <Button onPress={() => refetch()} title="Tentar novamente" color={colors.primary} />
+                    <AppButtonRefetch title="Tentar novamente" refetch={refetch} />{" "}
                 </View>
             </View>
         );
